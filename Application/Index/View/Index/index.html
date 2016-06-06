@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thinkphp3.2MessageSystem</title>
+</head>
+<style>
+    *{margin: 0;padding: 0;}
+    span{color:red; font-weight: bold;}
+</style>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
+<body>
+    <h1><a href="{:U('Index/index/add')}">添加</a></h1>
+    <br>
+<hr/>
+    <volist name="list" id="data">
+        <div id="s{$data['id']}">
+<div>
+    <br>
+    <div>ID:<span>{$data['id']}</span>&nbsp;&nbsp;标题：<span>{$data['title']}</span>&nbsp; 时间：<span>{$data['inputtime']|date="Y-m-d H:i:s",###}</span> &nbsp; <a href="{:U('Index/index/add',array('id'=>$data['id']))}">修改</a>&nbsp; <a href="javascript:del('{$data[id]}')">删除</a></div><br>
+    <p>
+        {$data['context']}
+    </p>
+</div><br><hr/></div>
+</volist>
+</body>
+</html>
+<script>
+function del(id){
+    var truthBeTold = window.confirm("确定删除此信息吗");
+    if(truthBeTold){
+        var url = "{:U('Index/index/del')}";
+        $.get(url+'&id='+id,function(data){
+            if(data == 1) $("#s"+id).slideUp(1000);
+        })
+    }
+
+}
+</script>
